@@ -77,7 +77,7 @@ public:
             clientSocketsMutex.unlock();
 
             // Create a new thread to handle the client
-            thread clientThread([this, clientSocket]() {
+            thread clientThread([this, clientSocket](int clientSocket) {
                 char buffer[1024];  // buffer to receive client messages
                 while (true) {
                     // Receive message from client
@@ -109,7 +109,7 @@ public:
 
                 // Close the client socket
                 close(clientSocket);
-            });
+            },clientSocket);
 
             // Detach the client thread to allow it to run independently
             clientThread.detach();
