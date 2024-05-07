@@ -11,7 +11,7 @@ using namespace std;
 void startClient(const char* serverIp, int port) {
     int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (clientSocket == -1) {
-        std::cerr << "Error creating client socket\n";
+        cerr << "Error creating client socket\n";
         exit(EXIT_FAILURE);
     }
 
@@ -21,15 +21,15 @@ void startClient(const char* serverIp, int port) {
     inet_pton(AF_INET, serverIp, &serverAddr.sin_addr);
 
     if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        std::cerr << "Error connecting to server\n";
+        cerr << "Error connecting to server\n";
         exit(EXIT_FAILURE);
     }
 
     char message[1024];
 
     while (true) {
-        std::cout << "Enter message: ";
-        std::cin.getline(message, sizeof(message));
+        cout << "Enter message: ";
+        cin.getline(message, sizeof(message));
 
         send(clientSocket, message, strlen(message), 0);
 
